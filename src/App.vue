@@ -1,15 +1,16 @@
 <template>
-  <div>hi</div>
-  <hd/>
+  <div>导航栏 |
+    <router-link to="/">hd</router-link> |
+    <router-link to="/xxx">Hd2</router-link></div>
+  <hr />
+  <router-view />
 </template>
 
 <script>
-import hd from './components/hd.vue'
+
 
 export default {
   name: 'App',
-  components: {
-    hd
-  }
+
 }
 </script>
