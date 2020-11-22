@@ -1,18 +1,34 @@
 <template>
-  <button class="tiny-button" :class="{[`tiny-theme-${theme}`]: theme}">
-    <slot />
+  <button class="tiny-button" :class="classes">
+    <slot/>
   </button>
 </template>
 
 <script lang="ts">
+import {computed} from 'vue';
+
 export default {
-  props:{
+  props: {
     theme: {
       type: String,
-      default: 'button'
-    }
+      default: 'button',
+    },
+    size: {
+      type: String,
+      default: 'normal',
+    },
   },
-}
+  setup(props) {
+    const {theme, size} = props;
+    const classes = computed(() => {
+      return {
+        [`tiny-theme-${theme}`]: theme,
+        [`tiny-size-${size}`]: size,
+      };
+    });
+    return {classes};
+  }
+};
 </script>
 <style lang="scss">
 $h: 32px;
@@ -20,7 +36,7 @@ $border-color: #d9d9d9;
 $color: #333;
 $blue: #40a9ff;
 $radius: 4px;
-.tiny-button{
+.tiny-button {
   box-sizing: border-box;
   height: $h;
   padding: 0 12px;
@@ -34,35 +50,53 @@ $radius: 4px;
   border: 1px solid $border-color;
   border-radius: $radius;
   box-shadow: 0 1px 0 fade-out(black, 0.95);
+
   & + & {
     margin-left: 8px;
   }
+
   &:hover,
-  &:focus{
+  &:focus {
     color: $blue;
     border-color: $blue;
   }
-  &:focus{
+
+  &:focus {
     outline: none;
   }
-  &::-moz-focus-inner{
+
+  &::-moz-focus-inner {
     border: 0;
   }
-  &.tiny-theme-link{
+
+  &.tiny-theme-link {
     border-color: transparent;
     box-shadow: none;
     color: $blue;
-    &:hover, &:focus{
+
+    &:hover, &:focus {
       color: lighten($blue, 10%);
     }
   }
-  &.tiny-theme-text{
+
+  &.tiny-theme-text {
     border-color: transparent;
     box-shadow: none;
     color: inherit;
-    &:hover, &:focus{
+
+    &:hover, &:focus {
       color: darken(white, 5%);
     }
+  }
+  &.tiny-size-big {
+    font-size: 24px;
+    height: 48px;
+    padding: 0 16px;
+  }
+  &.tiny-size-small {
+    font-size: 12px;
+    height: 20px;
+    padding: 0 4px;
   }
 }
 </style>
