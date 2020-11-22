@@ -3,15 +3,15 @@
     <div class="tiny-dialog-overlay" @click="onClickOverlay"></div>
     <div class="tiny-dialog-wrapper">
       <div class="tiny-dialog">
-        <header>标题
+        <header>
+          <slot name="title" />
           <span class="tiny-dialog-close"
                 @click="close"
           >
 
           </span></header>
         <main>
-          <p>第一行字</p>
-          <p>第二行字</p>
+          <slot name="content" />
         </main>
         <footer>
           <Button level="main" @click="ok">OK</Button>
