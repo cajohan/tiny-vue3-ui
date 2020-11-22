@@ -119,7 +119,7 @@ $grey: grey;
   }
 
   &.tiny-theme-button {
-    .tiny-level-main {
+    &.tiny-level-main {
       background: $blue;
       color: white;
       border-color: $blue;
