@@ -9,8 +9,8 @@
 </template>
 
 <script lang="ts">
-import Tabs from '../lib/Tabs.vue'
-import Tab from '../lib/Tab.vue'
+import {Tabs} from '../lib/index'; //这里使用的是相对路径
+import {Tab} from '../lib/index'; //这里使用的是相对路径
 import {
   ref
 } from 'vue'

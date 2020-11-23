@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts">
-import Dialog from '../lib/Dialog.vue'
-import Button from '../lib/Button.vue'
+import {Dialog} from '../lib/index'; //这里使用的是相对路径
+import {Button} from '../lib/index'; //这里使用的是相对路径
 import {
   ref
 } from 'vue'

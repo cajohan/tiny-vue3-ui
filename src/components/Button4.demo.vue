@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import Button from "../lib/Button.vue";
+import {Button} from '../lib/index'; //这里使用的是相对路径
 export default {
   components: {
     Button

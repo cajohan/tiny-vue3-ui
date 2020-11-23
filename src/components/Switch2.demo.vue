@@ -6,19 +6,20 @@
 </template>
 
 <script lang="ts">
-import Switch from '../lib/Switch.vue'
+import {Switch} from '../lib/index'; //这里使用的是相对路径
 import {
   ref
-} from 'vue'
+} from 'vue';
+
 export default {
   components: {
     Switch,
   },
   setup() {
-    const bool = ref(false)
+    const bool = ref(false);
     return {
       bool
-    }
+    };
   }
-}
+};
 </script>
