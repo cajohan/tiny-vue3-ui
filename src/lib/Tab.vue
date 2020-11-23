@@ -1,3 +1,5 @@
 <template>
-  <div>这是 Tab</div>
+  <div>
+    <slot />
+  </div>
 </template>
