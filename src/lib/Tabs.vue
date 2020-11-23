@@ -11,8 +11,7 @@
       <div class="tiny-tabs-nav-indicator" ref="indicator"></div>
     </div>
     <div class="tiny-tabs-content">
-      <component class="tiny-tabs-content-item" :class="{selected: c.props.title === selected}"
-                 v-for="c in defaults" :is="c"
+      <component :is="current" :key="current.props.title"
       />
     </div>
   </div>
@@ -51,9 +50,9 @@ export default {
       }
     });
     const current = computed(() => {
-      return defaults.filter((tag) => {
+      return defaults.find((tag) => {
         return tag.props.title === props.selected;
-      })[0];
+      });
     });
     const titles = defaults.map((tag) => {
       return tag.props.title;
@@ -107,14 +106,6 @@ $border-color: #d9d9d9;
 
   &-content {
     padding: 8px 0;
-
-    &-item {
-      display: none;
-
-      &.selected {
-        display: block;
-      }
-    }
   }
 }
 </style>
