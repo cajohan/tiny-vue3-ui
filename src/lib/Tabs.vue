@@ -1,10 +1,10 @@
 <template>
   <div class="tiny-tabs">
     <div class="tiny-tabs-nav">
-      <div class="tiny-tabs-nav-item"  v-for="(t, index) in titles" :key="index">{{ t }}</div>
+      <div class="tiny-tabs-nav-item" @click="select(t)" :class="{selected: t===selected}" v-for="(t, index) in titles" :key="index">{{ t }}</div>
     </div>
     <div class="tiny-tabs-content">
-      <component class="tiny-tabs-content-item" v-for="(c,index) in defaults" :is="c" :key="index"/>
+      <component class="tiny-tabs-content-item" :is="current" :key="selected"/>
     </div>
   </div>
 
@@ -13,8 +13,14 @@
 
 <script lang="ts">
 import Tab from './Tab.vue';
+import { computed } from 'vue';
 
 export default {
+  props:{
+    selected: {
+      type: String,
+    }
+  },
   setup(props, context) {
     const defaults = context.slots.default();
     defaults.forEach((tag) => {
@@ -22,11 +28,19 @@ export default {
         throw new Error('Tabs 子标签必须是 Tab');
       }
     });
+    const current = computed(()=>{
+      return defaults.filter((tag)=>{
+        return tag.props.title === props.selected
+      })[0]
+    })
     const titles = defaults.map((tag) => {
       return tag.props.title;
     });
+    const select = (title: string)=>{
+      context.emit('update:selected',title)
+    }
     return {
-      defaults, titles
+      defaults, titles,current,select
     };
   }
 };
