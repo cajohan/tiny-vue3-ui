@@ -4,7 +4,7 @@
       <div class="tiny-tabs-nav-item"
            @click="select(t)"
            :class="{selected: t===selected}"
-           :ref="el=>{if(el) navItems[index]=el}"
+           :ref="el=>{if(t===selected) selectedItem = el}"
            v-for="(t, index) in titles"
            :key="index">{{ t }}
       </div>
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Tab from './Tab.vue';
-import {computed, ref, onMounted, onUpdated} from 'vue';
+import {computed, ref, watchEffect} from 'vue';
 
 export default {
   props: {
@@ -31,22 +31,18 @@ export default {
     }
   },
   setup(props, context) {
-    const navItems = ref<HTMLDivElement[]>([]);
+    const selectedItem = ref<HTMLElement>(null);
     const indicator = ref<HTMLElement>(null);
     const container = ref<HTMLElement>(null);
     const x = () => {
-      const divs = navItems.value;
-      const result = divs.filter(div => div.classList.contains('selected'))[0];
-      console.log(result);
-      const {width} = result.getBoundingClientRect();
+      const {width} = selectedItem.value.getBoundingClientRect();
       indicator.value.style.width = width + 'px';
       const {left: left1} = container.value.getBoundingClientRect();
-      const {left: left2} = result.getBoundingClientRect();
+      const {left: left2} = selectedItem.value.getBoundingClientRect();
       const left = left2 - left1;
       indicator.value.style.left = left + 'px';
     };
-    onMounted(x);
-    onUpdated(x);
+    watchEffect(x);
     const defaults = context.slots.default();
     defaults.forEach((tag) => {
       if (tag.type !== Tab) {
@@ -65,7 +61,7 @@ export default {
       context.emit('update:selected', title);
     };
     return {
-      defaults, titles, current, select, navItems, indicator, container
+      defaults, titles, current, select, selectedItem, indicator, container
     };
   }
 };
