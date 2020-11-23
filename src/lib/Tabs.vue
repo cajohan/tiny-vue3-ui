@@ -1,10 +1,14 @@
 <template>
   <div class="tiny-tabs">
     <div class="tiny-tabs-nav">
-      <div class="tiny-tabs-nav-item" @click="select(t)" :class="{selected: t===selected}" v-for="(t, index) in titles" :key="index">{{ t }}</div>
+      <div class="tiny-tabs-nav-item" @click="select(t)" :class="{selected: t===selected}" v-for="(t, index) in titles"
+           :key="index">{{ t }}
+      </div>
     </div>
     <div class="tiny-tabs-content">
-      <component class="tiny-tabs-content-item" :is="current" :key="selected"/>
+      <component class="tiny-tabs-content-item" :class="{selected: c.props.title === selected}"
+                 v-for="c in defaults" :is="c"
+      />
     </div>
   </div>
 
@@ -13,10 +17,10 @@
 
 <script lang="ts">
 import Tab from './Tab.vue';
-import { computed } from 'vue';
+import {computed} from 'vue';
 
 export default {
-  props:{
+  props: {
     selected: {
       type: String,
     }
@@ -28,19 +32,19 @@ export default {
         throw new Error('Tabs 子标签必须是 Tab');
       }
     });
-    const current = computed(()=>{
-      return defaults.filter((tag)=>{
-        return tag.props.title === props.selected
-      })[0]
-    })
+    const current = computed(() => {
+      return defaults.filter((tag) => {
+        return tag.props.title === props.selected;
+      })[0];
+    });
     const titles = defaults.map((tag) => {
       return tag.props.title;
     });
-    const select = (title: string)=>{
-      context.emit('update:selected',title)
-    }
+    const select = (title: string) => {
+      context.emit('update:selected', title);
+    };
     return {
-      defaults, titles,current,select
+      defaults, titles, current, select
     };
   }
 };
@@ -51,27 +55,37 @@ $blue: #40a9ff;
 $color: #333;
 $border-color: #d9d9d9;
 
-.tiny-tabs{
-  &-nav{
+.tiny-tabs {
+  &-nav {
     display: flex;
     color: $color;
     border-bottom: 1px solid $border-color;
 
-    &-item{
+    &-item {
       padding: 8px 0;
       margin: 0 16px;
       cursor: pointer;
 
-      &:first-child{
+      &:first-child {
         margin-left: 0;
       }
-      &.selected{
+
+      &.selected {
         color: $blue
       }
     }
   }
-  &-content{
+
+  &-content {
     padding: 8px 0;
+
+    &-item {
+      display: none;
+
+      &.selected {
+        display: block;
+      }
+    }
   }
 }
 </style>
