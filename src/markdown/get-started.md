@@ -4,7 +4,7 @@
 然后在你的代码中写入下面的代码
 
 ```
-import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "tiny-ui"
+import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "tiny-vue3-ui"
 ```
 
 就可以使用我提供的组件了。
@@ -20,7 +20,8 @@ import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "tiny-ui"
   </div>
 </template>
 <script>
-import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "tiny-ui"
+import {Button, Tabs, Tab, Switch, Dialog, openDialog} from "tiny-vue3-ui"
+import 'tiny-vue3-ui/dist/lib/tiny.css'
 export default {
   components: {Button}
 }

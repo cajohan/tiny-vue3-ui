@@ -10,7 +10,6 @@
 <script lang="ts">
 import {Button} from '../lib/index'; //这里使用的是相对路径
 import {
-  ref,
   h
 } from 'vue'
 import {
@@ -26,10 +25,8 @@ export default {
         title: h('strong', {}, '标题'),
         content: '你好',
         ok() {
-          console.log('ok')
         },
         cancel() {
-          console.log('cancel')
         }
       })
     }
